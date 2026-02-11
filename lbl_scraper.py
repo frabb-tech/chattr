@@ -87,7 +87,7 @@ def scrape_standings(soup):
     
     standings_section = soup.find('table')
     if not standings_section:
-        standings_text = soup.find(text=re.compile(r'Standings'))
+        standings_text = soup.find(string=re.compile(r'Standings'))
         if standings_text:
             parent = standings_text.find_parent()
             if parent:
@@ -282,7 +282,7 @@ def scrape_upcoming(schedule_soup):
                                 
                                 # Try to extract round info
                                 round_text = ''
-                                round_header = row.find_previous(text=re.compile(r'Round \d+'))
+                                round_header = row.find_previous(string=re.compile(r'Round \d+'))
                                 if round_header:
                                     round_text = round_header.strip()
                                 
@@ -325,7 +325,7 @@ def scrape_stats(soup):
     for category in stat_categories:
         cat_lower = category.lower()
         
-        cat_header = soup.find(text=re.compile(category, re.IGNORECASE))
+        cat_header = soup.find(string=re.compile(category, re.IGNORECASE))
         
         if cat_header:
             parent = cat_header.find_parent()
@@ -344,7 +344,7 @@ def scrape_stats(soup):
                             value = float(numbers[-1])
                             
                             team = 'Unknown'
-                            team_elem = row.find(text=re.compile(r'[A-Z][a-z]+'))
+                            team_elem = row.find(string=re.compile(r'[A-Z][a-z]+'))
                             if team_elem:
                                 team = team_elem.strip()
                             
